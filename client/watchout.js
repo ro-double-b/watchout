@@ -5,41 +5,52 @@
   // key property
   // cx and cy property
 var dataset = [1, 2, 3, 4, 5];
-var playerSet = [1];
-// var drag = d3.behavior.drag()
-//   .on('drag', function(d, i) {
-//     d.x += d3.event.dx
-//     d.y += d3.event.dy
-//     d3.select(this).attr('transform', function(d,i) {
-//       return 'translate(' + [d.x, d.y] + ')'
-//     });
-//   });
+var playerSet = [{'x':500, 'y':250}];
+var drag = d3.behavior.drag()
+  .on('drag', function() {
+    player.attr('cx', d3.event.x)
+    .attr('cy', d3.event.y);
+  });
+
+
+  //   var dx = d3.event.dx
+  //   var dy = d3.event.dy
+  //   console.log(dx)
+  //   d3.select('.player').attr('transform', function(d,i) {
+  //     return 'translate(' + dx + ',' + dy +')' })
+    // });
+  // });
 
 
 var board = d3.select('.board').append('svg')
             .attr('width', 1000)
             .attr('height', 500);
 
-board.on('click', function() {
-  var test = d3.mouse(this)
-  var playerClick = board.selectAll('.player')
-        .attr('cx', test[0])
-        .attr('cy', test[1])
+// board.on('click', function() {
+//   var test = d3.mouse(this)
+//   var playerClick = board.selectAll('.player')
+//         .attr('cx', test[0])
+//         .attr('cy', test[1])
 
-});
+// });
   
 
 var player = board.selectAll('circle')
   .data(playerSet)
   .enter()
   .append('circle')
-  .attr('cx', 500)
-  .attr('cy', 250)
   .attr('r', 25)
   .attr('fill', 'red')
   .attr('class', 'player')
-  // .attr('transform', 'translate(' + x + ',' + y + ')')
-  // .call(drag);
+  .attr('cx', function(d) {
+    return d.x;
+  })
+  .attr('cy', function(d) {
+    return d.y;
+  })
+  .call(drag);
+  // .attr('transform', function(d) {
+  //   'translate(' + d.cx + ',' + d.cy + ')'})
 
 // create multiple enemies based off dataset
 // update atts
@@ -70,6 +81,4 @@ setInterval(function() {
 // on click mouse moves
 
 // interval function that calls every sec to update scoreboard/position
-
-
 
