@@ -11,15 +11,36 @@ var drag = d3.behavior.drag()
     .attr('cy', d3.event.y);
     playerSet[0].x = d3.event.x;
     playerSet[0].y = d3.event.y;
-    checkCollision();
   });
 
-var checkCollision = function(enemy) {
+var currentScore = 0;
+var highScore = currentScore;
+var collision = 0;
+
+
+var scoreNode = d3.select('body').select('div.scoreboard').select('div.current').select('span');
+
+
+var checkCollision = function() {
+  currentScore++;
+  if (currentScore > highScore) {
+    highScore = currentScore;
+  }
 
   if (Math.abs(playerSet[0].y - enemies.attr('cy')) <= 50 && Math.abs(playerSet[0].x - enemies.attr('cx')) <= 50) {
-  console.log('is this working');
-    }
+    currentScore = 0;
+    collision++;
   }
+  
+  d3.select('div.current').select('span').text(currentScore);
+  d3.select('div.highscore').select('span').text(highScore);
+  d3.select('div.collisions').select('span').text(collision);
+  // hello.data([2, 3, 4]).text(currentScore);
+
+  // d3.select('body').selectAll('span').data(currentScore).text(function(d) { return d; });
+};
+
+
 
 var board = d3.select('.board').append('svg')
             .attr('width', 1000)
@@ -66,8 +87,8 @@ move();
 
 setInterval(function() {
   move();
-}, 5000);
+}, 1000);
 
 setInterval(function() {
   checkCollision();
-}, 1000);
+}, 100);
