@@ -3,7 +3,7 @@
   // will be an array of objs
   // each obj will be one eniemi
 
-var dataset = [1, {'cy': 500, 'cx': 500}];
+var dataset = [1, {'cy': 500, 'cx': 500}, {'cy': 500, 'cx': 500}, {'cy': 500, 'cx': 500}];
 var playerSet = [{'x': 500, 'y': 250}];
 var drag = d3.behavior.drag()
   .on('drag', function() {
@@ -27,9 +27,16 @@ var checkCollision = function() {
     highScore = currentScore;
   }
 
-  if (Math.abs(playerSet[0].y - enemies.attr('cy')) <= 50 && Math.abs(playerSet[0].x - enemies.attr('cx')) <= 50) {
-    currentScore = 0;
-    collision++;
+  //iterate over array of enemies attributes
+  //check to see if any toutch
+  //if they do its a collsion
+
+  for (var i = 1; i < dataset.length; i++) {
+    if (Math.abs(playerSet[0].y - enemies[0][i].cy.animVal.value) <= 50 && Math.abs(playerSet[0].x - enemies[0][i].cx.animVal.value) <= 50) {
+      currentScore = 0;
+      collision++;  
+  }
+
   }
   
   d3.select('div.current').select('span').text(currentScore);
@@ -87,7 +94,7 @@ move();
 
 setInterval(function() {
   move();
-}, 1000);
+}, 3000);
 
 setInterval(function() {
   checkCollision();
