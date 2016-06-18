@@ -4,14 +4,22 @@
   // each obj will be one eniemi
 
 var dataset = [1, {'cy': 500, 'cx': 500}];
-var playerSet = [{'x':500, 'y':250}];
+var playerSet = [{'x': 500, 'y': 250}];
 var drag = d3.behavior.drag()
   .on('drag', function() {
     player.attr('cx', d3.event.x)
     .attr('cy', d3.event.y);
     playerSet[0].x = d3.event.x;
     playerSet[0].y = d3.event.y;
+    checkCollision();
   });
+
+var checkCollision = function(enemy) {
+
+  if (Math.abs(playerSet[0].y - enemies.attr('cy')) <= 50 && Math.abs(playerSet[0].x - enemies.attr('cx')) <= 50) {
+  console.log('is this working');
+    }
+  }
 
 var board = d3.select('.board').append('svg')
             .attr('width', 1000)
@@ -40,20 +48,16 @@ var enemies = board.selectAll('circle')
   .enter()
   .append('circle')
   .attr('cx', function(d) { return Math.random() * 1000; })
-  .attr('cy',  function(d) { return Math.random() * 500; })
+  .attr('cy', function(d) { return Math.random() * 500; })
   .attr('r', 25)
   .attr('class', 'enemies');
 // dataset of # enemies
 var move = function() {
-  // data
 
-  var cy;
-  var cx;
   enemies.transition()
   .delay(750)
   .attr('cy', function(d, i) { return Math.random() * 500; })
   .attr('cx', function(d, i) { return Math.random() * 1000; });
-
 
 
 };
@@ -62,5 +66,8 @@ move();
 
 setInterval(function() {
   move();
-}, 1000);
+}, 5000);
 
+setInterval(function() {
+  checkCollision();
+}, 1000);
