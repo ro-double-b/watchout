@@ -1,5 +1,51 @@
 /* your beautiful css styling goes here! */
+/*.enemies {
+   from {
+     -moz-transform: rotateY(0deg);
+     -ms-transform: rotateY(0deg);
+     transform: rotateY(0deg);
+   }
+   to {
+     -moz-transform: rotateY(-360deg);
+     -ms-transform: rotateY(-360deg);
+     transform: rotateY(-360deg);
+   }
+
+ -webkit-animation-timing-function: linear;
+ -webkit-animation-iteration-count: infinite;
+ -webkit-animation-duration: 6s;
+
+ animation-timing-function: linear;
+ animation-iteration-count: infinite;
+ animation-duration: 6s;
+
+ -webkit-transform-style: preserve-3d;
+ -moz-transform-style: preserve-3d;
+ -ms-transform-style: preserve-3d;
+ transform-style: preserve-3d;
+}*/
 
 /* Note: an asteroid image is included in this repo.
 Feel free to use it if you like. */
 
+.anticlockwise {
+-webkit-transform: rotate(360deg);
+-webkit-animation-name:infinite-spinning;
+-webkit-animation-duration: 1s;
+-webkit-animation-iteration-count: infinite;
+-webkit-animation-timing-function: linear;
+-webkit-transform-origin: 50% 50%;
+}
+
+/*@-webkit-keyframes infinite-spinning {
+ 0%   { opacity: 0; }
+ 100% { opacity: 1; }
+}*/
+
+@keyframes infinite-spinning {
+ from {
+   transform: rotate(0deg);
+ }
+ to {
+   transform: rotate(360deg);
+ }
